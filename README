@@ -1,10 +1,10 @@
-Sequencial file renamer
+Sequential file renamer
 =======================
 
 Renames files in a numerical sequence.
-(C) 2019 António Manuel Dias
+(C) 2021 António Manuel Dias
 
-Version 0.3 -- 2019-09-01
+Version 0.4 -- 2021-02-26
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,79 +19,104 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+### Changes history
+
+* 0.4: Added user's manual.
+       Code refactoring.
+* 0.3: Initial public version
+
 
 Installation
 ------------
 
-1. Copy the file to a directory in your PATH.
+The following instructions describe the installation process for basic usage by
+a single user in a Linux environment.  They probably apply to other Unix-like
+operating systems but this was *not* tested -- use it at your own risk.  It may
+also be possible to use this program in MS Windows but, as with any other
+command-line utility, it will require some tweaking by the user.
 
-2. make the program executable:
+For more advanced instructions, please refer to the user manual in the files
+"MANUAL" or "MANUAL.html".
 
-   $ chmod +x seqren-0.3.py
+1. Uncompress the program zip file to a convenient place and open a terminal
+   on that directory.  Execute the local installation script:
 
-3. (Optional) Create a symbolic link to facilitate de use of the
-   program:
+        $ bash local_install.sh
 
-   $ ln -s seqren-0.3.py seqren
+   This will copy the program to the current user's "~/.local/lib" hidden
+   directory and create a symbolic link to the program in  "~/.local/bin", which
+   should be in the user's PATH.
+
+2. To check that the program is working, open *another* terminal and type:
+
+        $ seqren --version
+
+   This should print the program's name and version.  If not, check if the
+   directory "~/.local/bin/" is in the PATH:
+
+        $ echo $PATH
+
+   Also, check that the program was copied to the location mentioned above
+   and that the symbolic link was created.
 
 
 Examples of Usage
 -----------------
 
-1. Rename files example.txt and test.txt to 1.txt and 2.txt:
+1. Rename files `example.txt` and `test.txt` to `1.txt` and `2.txt`:
 
-   $ seqren example.txt test.txt
+       $ seqren example.txt test.txt
 
-2. Rename all files with extension .jpg in the current directory
-   in a sequence (1.jpg, 2.jpg ...)
+2. Rename all files with extension `.jpg` in the current directory
+   in a sequence (`1.jpg`, `2.jpg` ...)
 
-   $ seqren *.jpg
+       $ seqren *.jpg
 
-3. Rename all files with extension .jpg in the current directory
-   in a sequence starting in number 0 (0.jpg, 1.jpg, ...)
+3. Rename all files with extension `.jpg` in the current directory
+   in a sequence starting in number 0 (`0.jpg`, `1.jpg`, ...)
 
-   $ seqren *.jpg -s 0
+       $ seqren *.jpg -s 0
 
-4. Rename all files with extension .jpg in the current directory
+4. Rename all files with extension `.jpg` in the current directory
    in a sequence, with 2 digit numbers with leading zeroes
-   (01.jpg, 02.jpg, ...)
+   (`01.jpg`, `02.jpg`, ...)
 
-   $ seqren *.jpg -z 2
+       $ seqren *.jpg -z 2
 
 5. Rename all files with extension .jpg in the current directory
    in a sequence, with 2 digit numbers and starting with the text
-   "Day At The Beach-" (Day At The Beach-01.jpg,
-   Day At The Beach-02.jpg, ...)
+   "Day At The Beach-" (`Day At The Beach-01.jpg`,
+   `Day At The Beach-02.jpg`, ...)
 
-   $ seqren *.jpg -z 2 -T "Day At The Beach-"
+       $ seqren *.jpg -z 2 -T "Day At The Beach-"
 
-6. Same as previous example but changing extension to .jpeg
-   (Day At The Beach-01.jpeg, Day At The Beach-02.jpeg, ...)
+6. Same as previous example but changing extension to `.jpeg`
+   (`Day At The Beach-01.jpeg`, `Day At The Beach-02.jpeg`, ...)
 
-   $ seqren *.jpg -z 2 -T "Day At The Beach-" -e .jpeg
+       $ seqren *.jpg -z 2 -T "Day At The Beach-" -e .jpeg
 
-7. Rename all files with extension .mp3 in a sequence, keeping
+7. Rename all files with extension `.mp3` in a sequence, keeping
    the original name after the number separated by a space
-   (1 House of the Rising Sun.mp3, 2 Scarborough Fair.mp3, ...):
+   (`1 House of the Rising Sun.mp3`, `2 Scarborough Fair.mp3`, ...):
 
-   $ seqren *.mp3 -i -t " "
+       $ seqren *.mp3 -i -t " "
 
 8. Same as previous example but moving the files to the directory
-   "Folk Music" (Folk Music/1 House of the Rising Sun.mp3,
-   Folk Music/2 Scarborough Fair.mp3, ...):
+   "Folk Music" (`Folk Music/1 House of the Rising Sun.mp3`,
+   `Folk Music/2 Scarborough Fair.mp3`, ...):
 
-   $ seqren *.mp3 -i -t " " -d "Folk Music"
+       $ seqren *.mp3 -i -t " " -d "Folk Music"
 
-9. Add option -k to keep the original files:
+9. Add option `-k` to keep the original files:
 
-   $ seqren *.mp3 -k -i -t " " -d "Folk Music"
+       $ seqren *.mp3 -k -i -t " " -d "Folk Music"
 
-10. Option -n only shows the operations to execute, without actually
+10. Option `-n` only shows the operations to execute, without actually
     renaming the files. Example:
 
-   $ seqren *.mp3 -n -k -i -t " " -d "Folk Music"
+       $ seqren *.mp3 -n -k -i -t " " -d "Folk Music"
 
    would output:
 
-   cp House of the Rising Sun.mp3 Folk Music/1 House of the Rising Sun.mp3
-   cp Scarboroug Fair.mp3 Folk Music/2 Scarborough Fair.mp3
+       cp House of the Rising Sun.mp3 Folk Music/1 House of the Rising Sun.mp3
+       cp Scarborough Fair.mp3 Folk Music/2 Scarborough Fair.mp3

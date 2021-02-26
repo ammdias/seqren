@@ -1,0 +1,98 @@
+<h1 id="sequential-file-renamer">SEQUENTIAL FILE RENAMER</h1>
+<p>This is a small Python script to rename files in a numerical sequence.</p>
+<p>Copyright (C) 2021 António Manuel Dias</p>
+<p>contact: ammdias@gmail.com</p>
+<h3 id="changes-history">Changes history</h3>
+<ul>
+<li>0.4: Added user’s manual. Code refactoring.</li>
+<li>0.3: Initial public version</li>
+</ul>
+<h2 id="contents">CONTENTS</h2>
+<ul>
+<li><a href="#changes-history">Changes history</a></li>
+<li><a href="#installation">INSTALLATION</a></li>
+<li><a href="#usage">USAGE</a>
+<ul>
+<li>[Usage in MS Windows]</li>
+</ul></li>
+<li><a href="#reference">REFERENCE</a></li>
+<li><a href="#license">LICENSE</a></li>
+</ul>
+<h2 id="installation">INSTALLATION</h2>
+<p>The instructions below are for installation on a modern Linux system. They may work on other modern Unix-like systems like BSD derivatives, including MacOS, but that has not been tested and may require some tweaking. Try it at your own risk. For MS Windows installation, the user will have to do some tweaking.</p>
+<ol type="1">
+<li><p>Download and unzip the program’s compressed file in a directory of your choosing.</p></li>
+<li><p>Open a terminal in the directory where the program was uncompressed and run one of the following scripts to install locally or globally:</p>
+<ul>
+<li><p>Local installation:</p>
+<pre><code>$ bash local_install.sh</code></pre>
+<p>This will install the program for the current user only and is suited for single-user systems. The program will be installed in a directory under <code>$HOME/.local/lib</code> and a symbolic link <code>$HOME/.local/bin/seqren</code> will be created to allow simple execution.</p>
+<p>On most Linux systems the <code>$HOME/.local/bin</code> directory will be inserted in the execution PATH, if it exists. If that is not your case, you must make sure to insert it.</p></li>
+<li><p>Global installation:</p>
+<pre><code>$ sudo bash global_install.sh</code></pre>
+<p>This will install the program for all the system’s users and should be the option if it is installed in a multi-user system. The program will be installed under <code>/usr/local/lib</code> and a symlink <code>/usr/local/bin/seqren</code> will be created.</p></li>
+<li><p>Manual installation:</p>
+<p>Copy the uncompressed program directory to a location of your choosing and create a symbolic link <code>seqren</code> to the launch program (<code>seqren.py</code>) anywhere in your PATH.</p></li>
+</ul></li>
+<li><p>Test that the installation was successful with the command:</p>
+<pre><code>$ seqren --version</code></pre>
+<p>(this should open the print the program’s name and version)</p>
+<pre><code>$ seqren --help</code></pre>
+<p>(this should print the program’s simple help page)</p></li>
+</ol>
+<h2 id="usage">USAGE</h2>
+<p>This utility is to be used from the command line (terminal), as any other shell command. The basic usage is:</p>
+<pre><code>$ seqren [file [file ...]</code></pre>
+<p>which will rename the file(s) passed as arguments to a numerical sequence, preserving their extensions. It’s also possible to change the final name (and extension) of the renamed files using one or more of the optional arguments, like preserving the file’s original names, in addition to the sequence number, inserting text before of after the number or changing the file’s extensions.</p>
+<p>The files could be passed explicitly or by globbing using the usual shell wildcards, like:</p>
+<pre><code>$ seqren *.jpg
+$ seqren IMG-202102??-*.jpg</code></pre>
+<p>The sequence will usually start at the number 1, with no leading zeroes, but this behaviour may be altered with the <code>--start</code> and <code>--leading_zeroes</code> options. It is also possible to move the files while renaming them and to keep the original files.</p>
+<p>You may combine several options. Check the <a href="#reference">REFERENCE</a> section for the explanation of the full capabilities of the utility.</p>
+<h2 id="reference">REFERENCE</h2>
+<h3 id="options-to-change-the-sequence-number">Options to change the sequence number</h3>
+<ul>
+<li><p><code>-s &lt;number&gt;</code>, <code>--start &lt;number&gt;</code>: change the starting number of the sequence. The sequence will start at the number passed as argument and increase by 1 at each renamed file (reverse sequencing or other step increases is not possible). Example:</p>
+<pre><code>$ seqren -s 10 *.jpg</code></pre>
+<p>will rename all files with <code>.jpg</code> extension in the current directory, starting at number 10: <code>10.jpg</code>, <code>11.jpg</code>, etc.</p></li>
+<li><p><code>-z &lt;number&gt;</code>, <code>--leading_zeroes &lt;number&gt;</code>: format the sequence number to a fixed width, adding the necessary leading zeroes.</p>
+<pre><code>$ seqren -z 3 *.jpg</code></pre>
+<p>will rename all files with <code>.jpg</code> extension in the current directory with three-digit numbers with leading zeroes: <code>001.jpg</code>, <code>002.jpg</code>, etc.</p></li>
+</ul>
+<h3 id="options-to-insert-other-text-besides-the-sequence-number">Options to insert other text besides the sequence number</h3>
+<ul>
+<li><p><code>-t &lt;text&gt;</code>, <code>--text_after &lt;text&gt;</code>: insert the text passed as argument after the sequence number.</p>
+<pre><code>$ seqren -t &#39;-Rome&#39; *.jpg</code></pre>
+<p>will rename all <code>.jpg</code> files in the current directory, inserting the text <code>-Rome</code> after the number: <code>1-Rome.jpg</code>, <code>2-Rome.jpg</code>, etc.</p></li>
+<li><p><code>-T &lt;text&gt;</code>, <code>--text_before &lt;text&gt;</code>: insert the text passed as argument before the sequence number.</p>
+<pre><code>$ seqren -T &#39;Rome-&#39; *.jpg</code></pre>
+<p>will rename all <code>.jpg</code> files in the current directory, inserting the text <code>-Rome</code> before the number: <code>Rome-1.jpg</code>, <code>Rome-2.jpg</code>, etc.</p></li>
+<li><p><code>-i</code>, <code>--include_name_after</code>: insert the original file name after the sequence number.</p>
+<pre><code>$ seqren -i -t &#39;-&#39; MammaMia.mp3 NovemberRain.mp3</code></pre>
+<p>will rename the files passed as argument, inserting their original name after the sequence number (also note the dash inserted by option <code>-t</code>): <code>1-MammaMia.mp3</code>, <code>2-NovemberRain.mp3</code></p></li>
+<li><p><code>-I</code>, <code>--include_name_before</code>: insert the original file name before the sequence number.</p>
+<pre><code>$ seqren -I -T &#39;-&#39; MammaMia.mp3 NovemberRain.mp3</code></pre>
+<p>will rename the files passed as argument, inserting their original name before the sequence number (also note the dash inserted by option <code>-T</code>): <code>MammaMia-1.mp3</code>, <code>NovemberRain-2.mp3</code></p></li>
+</ul>
+<h3 id="options-to-change-the-default-renaming-behaviour-of-the-program">Options to change the default renaming behaviour of the program</h3>
+<ul>
+<li><p><code>-e &lt;extension&gt;</code>, <code>--extension &lt;extension&gt;</code>: change extension of renamed files to the passed argument.</p>
+<pre><code>$ seqren -e .jpeg *.jpg *.JPG</code></pre>
+<p>will rename all files with extensions <code>.jpg</code> and <code>.JPG</code>, change their extension to <code>.jpeg</code>: <code>1.jpeg</code>, <code>2.jpeg</code>, etc.</p></li>
+<li><p><code>-k</code>, <code>--keep</code>: will keep the original files, making new renamed copies of them.</p></li>
+<li><p><code>-d &lt;directory&gt;</code>, <code>--destination_directory &lt;directory&gt;</code>: will move (or copy, if the <code>-k</code> option was added) the renamed files to the directory passed as argument.</p></li>
+<li><p><code>-n</code>, <code>--no_act</code>: will print the actions that would be performed by the program instead of actually executing them. This is extremely useful to check the changes that will be made by all the options before submitting them.</p></li>
+</ul>
+<h3 id="miscellaneous-options">Miscellaneous options</h3>
+<ul>
+<li><p><code>-h</code>, <code>--help</code>: display the program’s help page</p></li>
+<li><p><code>--version</code>: display the program’s name and version.</p></li>
+<li><p><code>--copyright</code>: display the program’s copyright information.</p></li>
+<li><p><code>--manual</code>: display the user’s manual in a web browser window.</p></li>
+</ul>
+<h2 id="license">LICENSE</h2>
+<p>Copyright (C) 2021 António Manuel Dias</p>
+<p>contact: ammdias@gmail.com</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the <a href="http://www.gnu.org/licenses">GNU General Public License</a> along with this program. If not, please check the site above.</p>

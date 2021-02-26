@@ -1,0 +1,222 @@
+SEQUENTIAL FILE RENAMER
+=======================
+
+This is a small Python script to rename files in a numerical sequence.
+
+Copyright (C) 2021 António Manuel Dias
+
+contact: ammdias@gmail.com
+
+### Changes history
+
+* 0.4: Added user's manual.
+       Code refactoring.
+* 0.3: Initial public version
+
+
+CONTENTS
+--------
+
+* [Changes history]
+* [INSTALLATION]
+* [USAGE]
+  * [Usage in MS Windows]
+* [REFERENCE]
+* [LICENSE]
+
+
+INSTALLATION
+------------
+
+The instructions below are for installation on a modern Linux system.  They
+may work on other modern Unix-like systems like BSD derivatives, including
+MacOS, but that has not been tested and may require some tweaking.  Try it at
+your own risk.  For MS Windows installation, the user will have to do some
+tweaking.
+
+1. Download and unzip the program's compressed file in a directory of your
+   choosing.
+
+2. Open a terminal in the directory where the program was uncompressed and run
+   one of the following scripts to install locally or globally:
+
+   * Local installation:
+
+         $ bash local_install.sh
+
+     This will install the program for the current user only and is suited for
+     single-user systems.  The program will be installed in a directory under
+     `$HOME/.local/lib` and a symbolic link `$HOME/.local/bin/seqren` will be
+     created to allow simple execution.
+
+     On most Linux systems the `$HOME/.local/bin` directory will be inserted in
+     the execution PATH, if it exists.  If that is not your case, you must make
+     sure to insert it.
+
+   * Global installation:
+
+         $ sudo bash global_install.sh
+
+     This will install the program for all the system's users and should be the
+     option if it is installed in a multi-user system.  The program will be
+     installed under `/usr/local/lib` and a symlink `/usr/local/bin/seqren` will
+     be created.
+
+   * Manual installation:
+
+     Copy the uncompressed program directory to a location of your choosing and
+     create a symbolic link `seqren` to the launch program (`seqren.py`) anywhere
+     in your PATH.
+
+3. Test that the installation was successful with the command:
+
+       $ seqren --version
+
+   (this should open the print the program's name and version)
+
+       $ seqren --help
+
+   (this should print the program's simple help page)
+
+
+USAGE
+-----
+
+This utility is to be used from the command line (terminal), as any other shell
+command.  The basic usage is:
+
+    $ seqren [file [file ...]
+
+which will rename the file(s) passed as arguments to a numerical sequence,
+preserving their extensions.  It's also possible to change the final name (and
+extension) of the renamed files using one or more of the optional arguments,
+like preserving the file's original names, in addition to the sequence number,
+inserting text before of after the number or changing the file's extensions.
+
+The files could be passed explicitly or by globbing using the usual shell
+wildcards, like:
+
+    $ seqren *.jpg
+    $ seqren IMG-202102??-*.jpg
+
+The sequence will usually start at the number 1, with no leading zeroes, but
+this behaviour may be altered with the `--start` and `--leading_zeroes`
+options.  It is also possible to move the files while renaming them and to
+keep the original files.
+
+You may combine several options.  Check the [REFERENCE] section for the
+explanation of the full capabilities of the utility.
+
+REFERENCE
+---------
+
+### Options to change the sequence number
+
+* `-s <number>`, `--start <number>`: change the starting number of the sequence.
+  The sequence will start at the number passed as argument and increase by 1 at
+  each renamed file (reverse sequencing or other step increases is not
+  possible). Example:
+
+      $ seqren -s 10 *.jpg
+
+  will rename all files with `.jpg` extension in the current directory,
+  starting at number 10: `10.jpg`, `11.jpg`, etc.
+
+* `-z <number>`, `--leading_zeroes <number>`: format the sequence number to a
+  fixed width, adding the necessary leading zeroes.
+
+      $ seqren -z 3 *.jpg
+
+  will rename all files with `.jpg` extension in the current directory with
+  three-digit numbers with leading zeroes: `001.jpg`, `002.jpg`, etc.
+
+### Options to insert other text besides the sequence number
+
+* `-t <text>`, `--text_after <text>`: insert the text passed as argument after
+  the sequence number.
+
+      $ seqren -t '-Rome' *.jpg
+
+  will rename all `.jpg` files in the current directory, inserting the text
+  `-Rome` after the number: `1-Rome.jpg`, `2-Rome.jpg`, etc.
+
+* `-T <text>`, `--text_before <text>`: insert the text passed as argument
+  before the sequence number.
+
+      $ seqren -T 'Rome-' *.jpg
+
+  will rename all `.jpg` files in the current directory, inserting the text
+  `-Rome` before the number: `Rome-1.jpg`, `Rome-2.jpg`, etc.
+
+* `-i`, `--include_name_after`: insert the original file name after the
+  sequence number.
+
+      $ seqren -i -t '-' MammaMia.mp3 NovemberRain.mp3
+
+  will rename the files passed as argument, inserting their original name after
+  the sequence number (also note the dash inserted by option `-t`):
+  `1-MammaMia.mp3`, `2-NovemberRain.mp3`
+
+* `-I`, `--include_name_before`: insert the original file name before the
+  sequence number.
+
+      $ seqren -I -T '-' MammaMia.mp3 NovemberRain.mp3
+
+  will rename the files passed as argument, inserting their original name
+  before the sequence number (also note the dash inserted by option `-T`):
+  `MammaMia-1.mp3`, `NovemberRain-2.mp3`
+
+### Options to change the default renaming behaviour of the program
+
+* `-e <extension>`, `--extension <extension>`: change extension of renamed
+  files to the passed argument.
+
+      $ seqren -e .jpeg *.jpg *.JPG
+
+  will rename all files with extensions `.jpg` and `.JPG`, change their
+  extension to `.jpeg`: `1.jpeg`, `2.jpeg`, etc.
+
+* `-k`, `--keep`: will keep the original files, making new renamed copies of
+  them.
+
+* `-d <directory>`, `--destination_directory <directory>`: will move (or copy,
+  if the `-k` option was added) the renamed files to the directory passed as
+  argument.
+
+* `-n`, `--no_act`: will print the actions that would be performed by the
+  program instead of actually executing them.  This is extremely useful to
+  check the changes that will be made by all the options before submitting
+  them.
+
+### Miscellaneous options
+
+* `-h`, `--help`: display the program's help page
+
+* `--version`: display the program's name and version.
+
+* `--copyright`: display the program's copyright information.
+
+* `--manual`: display the user's manual in a web browser window.
+
+LICENSE
+-------
+
+Copyright (C) 2021 António Manuel Dias
+
+contact: ammdias@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+GNU General Public License for more details.
+
+You should have received a copy of the [GNU General Public
+License](http://www.gnu.org/licenses) along with this program.  If not,
+please check the site above.
+
+
