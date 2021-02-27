@@ -19,12 +19,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>."""
 
-__version__ = '0.4'
-__date__ = '2021-02-26'
+__version__ = '0.4.1'
+__date__ = '2021-02-27'
 __license__ ='GNU General Public License version 3'
 __author__ = 'António Manuel Dias <ammdias@gmail.com>'
 
 
+import sys
 import shutil
 import os.path
 import argparse
@@ -122,7 +123,7 @@ if args.version:
 elif args.copyright:
     print(__doc__)
 elif args.manual:
-    webbrowser.open_new("MANUAL.html")
+    webbrowser.open_new(os.path.join(sys.path[0], "MANUAL.html"))
 else:
     if args.no_act:
         action = lambda s,d: print("cp" if args.keep else "mv", s, d)

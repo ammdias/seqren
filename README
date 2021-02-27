@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ### Changes history
 
+* 0.4.1: Corrected bug that prevented manual from being displayed.
 * 0.4: Added user's manual.
        Code refactoring.
 * 0.3: Initial public version

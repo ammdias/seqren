@@ -9,6 +9,7 @@ contact: ammdias@gmail.com
 
 ### Changes history
 
+* 0.4.1: Corrected bug that prevented manual from being displayed.
 * 0.4: Added user's manual.
        Code refactoring.
 * 0.3: Initial public version
@@ -20,7 +21,6 @@ CONTENTS
 * [Changes history]
 * [INSTALLATION]
 * [USAGE]
-  * [Usage in MS Windows]
 * [REFERENCE]
 * [LICENSE]
 
