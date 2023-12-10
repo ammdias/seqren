@@ -60,7 +60,7 @@ in a Linux environment.
 
 4. To uninstall the program use the command:
 
-       $ seqren -uninstall
+       $ seqren --uninstall
 
 
 Examples of Usage
