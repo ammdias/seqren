@@ -2,15 +2,9 @@
 <p>This is a small Python script to rename files in a numerical sequence.</p>
 <p>Copyright (C) 2021 António Manuel Dias</p>
 <p>contact: ammdias@gmail.com</p>
-<h3 id="changes-history">Changes history</h3>
-<ul>
-<li>0.4.1: Corrected bug that prevented manual from being displayed.</li>
-<li>0.4: Added user’s manual. Code refactoring.</li>
-<li>0.3: Initial public version</li>
-</ul>
 <h2 id="contents">CONTENTS</h2>
 <ul>
-<li><a href="#changes-history">Changes history</a></li>
+<li>[Changes history]</li>
 <li><a href="#installation">INSTALLATION</a></li>
 <li><a href="#usage">USAGE</a></li>
 <li><a href="#reference">REFERENCE</a></li>
@@ -20,18 +14,10 @@
 <p>The instructions below are for installation on a modern Linux system. They may work on other modern Unix-like systems like BSD derivatives, including MacOS, but that has not been tested and may require some tweaking. Try it at your own risk. For MS Windows installation, the user will have to do some tweaking.</p>
 <ol type="1">
 <li><p>Download and unzip the program’s compressed file in a directory of your choosing.</p></li>
-<li><p>Open a terminal in the directory where the program was uncompressed and run one of the following scripts to install locally or globally:</p>
-<ul>
-<li><p>Local installation:</p>
-<pre><code>$ bash local_install.sh</code></pre>
+<li><p>Open a terminal in the directory where the program was uncompressed and run the following script to install locally:</p>
+<pre><code> $ python3 INSTALL.py</code></pre>
 <p>This will install the program for the current user only and is suited for single-user systems. The program will be installed in a directory under <code>$HOME/.local/lib</code> and a symbolic link <code>$HOME/.local/bin/seqren</code> will be created to allow simple execution.</p>
 <p>On most Linux systems the <code>$HOME/.local/bin</code> directory will be inserted in the execution PATH, if it exists. If that is not your case, you must make sure to insert it.</p></li>
-<li><p>Global installation:</p>
-<pre><code>$ sudo bash global_install.sh</code></pre>
-<p>This will install the program for all the system’s users and should be the option if it is installed in a multi-user system. The program will be installed under <code>/usr/local/lib</code> and a symlink <code>/usr/local/bin/seqren</code> will be created.</p></li>
-<li><p>Manual installation:</p>
-<p>Copy the uncompressed program directory to a location of your choosing and create a symbolic link <code>seqren</code> to the launch program (<code>seqren.py</code>) anywhere in your PATH.</p></li>
-</ul></li>
 <li><p>Test that the installation was successful with the command:</p>
 <pre><code>$ seqren --version</code></pre>
 <p>(this should open the print the program’s name and version)</p>
@@ -87,6 +73,7 @@ $ seqren IMG-202102??-*.jpg</code></pre>
 <li><p><code>--version</code>: display the program’s name and version.</p></li>
 <li><p><code>--copyright</code>: display the program’s copyright information.</p></li>
 <li><p><code>--manual</code>: display the user’s manual in a web browser window.</p></li>
+<li><p><code>--uninstall</code>: uninstall the program.</p></li>
 </ul>
 <h2 id="license">LICENSE</h2>
 <p>Copyright (C) 2021 António Manuel Dias</p>

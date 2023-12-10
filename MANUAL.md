@@ -7,13 +7,6 @@ Copyright (C) 2021 António Manuel Dias
 
 contact: ammdias@gmail.com
 
-### Changes history
-
-* 0.4.1: Corrected bug that prevented manual from being displayed.
-* 0.4: Added user's manual.
-       Code refactoring.
-* 0.3: Initial public version
-
 
 CONTENTS
 --------
@@ -38,35 +31,18 @@ tweaking.
    choosing.
 
 2. Open a terminal in the directory where the program was uncompressed and run
-   one of the following scripts to install locally or globally:
+   the following script to install locally:
 
-   * Local installation:
+        $ python3 INSTALL.py
 
-         $ bash local_install.sh
+   This will install the program for the current user only and is suited for
+   single-user systems.  The program will be installed in a directory under
+   `$HOME/.local/lib` and a symbolic link `$HOME/.local/bin/seqren` will be
+   created to allow simple execution.
 
-     This will install the program for the current user only and is suited for
-     single-user systems.  The program will be installed in a directory under
-     `$HOME/.local/lib` and a symbolic link `$HOME/.local/bin/seqren` will be
-     created to allow simple execution.
-
-     On most Linux systems the `$HOME/.local/bin` directory will be inserted in
-     the execution PATH, if it exists.  If that is not your case, you must make
-     sure to insert it.
-
-   * Global installation:
-
-         $ sudo bash global_install.sh
-
-     This will install the program for all the system's users and should be the
-     option if it is installed in a multi-user system.  The program will be
-     installed under `/usr/local/lib` and a symlink `/usr/local/bin/seqren` will
-     be created.
-
-   * Manual installation:
-
-     Copy the uncompressed program directory to a location of your choosing and
-     create a symbolic link `seqren` to the launch program (`seqren.py`) anywhere
-     in your PATH.
+   On most Linux systems the `$HOME/.local/bin` directory will be inserted in
+   the execution PATH, if it exists.  If that is not your case, you must make
+   sure to insert it.
 
 3. Test that the installation was successful with the command:
 
@@ -106,6 +82,7 @@ keep the original files.
 
 You may combine several options.  Check the [REFERENCE] section for the
 explanation of the full capabilities of the utility.
+
 
 REFERENCE
 ---------
@@ -197,6 +174,9 @@ REFERENCE
 * `--copyright`: display the program's copyright information.
 
 * `--manual`: display the user's manual in a web browser window.
+
+* `--uninstall`: uninstall the program.
+
 
 LICENSE
 -------

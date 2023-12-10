@@ -4,7 +4,7 @@ Sequential file renamer
 Renames files in a numerical sequence.
 (C) 2021 António Manuel Dias
 
-Version 0.4.1 -- 2021-02-27
+Version 0.5 -- 2023-12-10
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,46 +19,48 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-### Changes history
-
-* 0.4.1: Corrected bug that prevented manual from being displayed.
-* 0.4: Added user's manual.
-       Code refactoring.
-* 0.3: Initial public version
-
 
 Installation
 ------------
 
-The following instructions describe the installation process for basic usage by
-a single user in a Linux environment.  They probably apply to other Unix-like
-operating systems but this was *not* tested -- use it at your own risk.  It may
-also be possible to use this program in MS Windows but, as with any other
-command-line utility, it will require some tweaking by the user.
+The following instructions describe the installation process for basic usage
+in a Linux environment.
 
-For more advanced instructions, please refer to the user manual in the files
-"MANUAL" or "MANUAL.html".
+1. Open a terminal in the directory where the program was uncompressed and run
+   the installation script with Python 3:
 
-1. Uncompress the program zip file to a convenient place and open a terminal
-   on that directory.  Execute the local installation script:
+       $ python3 INSTALL.py
 
-        $ bash local_install.sh
+   You will be prompted for the installation directory --- i.e. the directory
+   under which the folder containing all the application files will be placed
+   --- and for the start link directory --- i.e. the directory where the
+   symbolic link for the program will be created.
 
-   This will copy the program to the current user's "~/.local/lib" hidden
-   directory and create a symbolic link to the program in  "~/.local/bin", which
-   should be in the user's PATH.
+   The default directories will install the program for the current user only
+   and are suited for single-user systems.  If you want to keep these
+   settings, just press ENTER when prompted.  The program will be installed in
+   the directory `$HOME/.local/lib/seqren` and the symbolic link
+   `$HOME/.local/bin/seqren` will be created.  On most Linux systems the
+   `$HOME/.local/bin` directory will be inserted in the execution PATH, if it
+   exists. If it doesn't, you will have to add it manually.
 
-2. To check that the program is working, open *another* terminal and type:
+   If a previous installation exists on the selected directory, you will be
+   asked if you want to overwrite it.  Answer "`yes`" (or just "`y`") if that
+   is the case or "`no`" ("`n`") if not.
 
-        $ seqren --version
+2. Test that the installation was successful with the command:
 
-   This should print the program's name and version.  If not, check if the
-   directory "~/.local/bin/" is in the PATH:
+       $ seqren --help
 
-        $ echo $PATH
+   (you should be presented with the program's help page)
 
-   Also, check that the program was copied to the location mentioned above
-   and that the symbolic link was created.
+3. Read the MANUAL.  You can open it in a web browser with the command:
+
+       $ seqren --manual
+
+4. To uninstall the program use the command:
+
+       $ seqren -uninstall
 
 
 Examples of Usage

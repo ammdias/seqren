@@ -19,8 +19,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>."""
 
-__version__ = '0.4.1'
-__date__ = '2021-02-27'
+__version__ = '0.5'
+__date__ = '2023-12-10'
 __license__ ='GNU General Public License version 3'
 __author__ = 'António Manuel Dias <ammdias@gmail.com>'
 
@@ -112,14 +112,24 @@ parser.add_argument("--copyright", action="store_true",
 parser.add_argument("--manual", action="store_true",
                     help="display the user's manual in a web browser window.")
 
+parser.add_argument("--uninstall", action="store_true",
+                    help="uninstall program.")
+
 
 #------------------------------------------------------------------------------
 # process options
 
 args = parser.parse_args()
 
-if args.version:
-    print("seqren", __version__)
+if args.uninstall:
+    from UNINSTALL import uninstall
+    uninstall()
+elif args.version:
+    try:
+        appver = open(os.path.join(sys.path[0], '__version__')).read().strip()
+    except:
+        appver = __version__
+    print("seqren", appver)
 elif args.copyright:
     print(__doc__)
 elif args.manual:
