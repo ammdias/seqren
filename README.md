@@ -63,7 +63,7 @@ in a Linux environment.
        $ seqren --uninstall
 
 
-Examples of Usage
+EXAMPLES OF USAGE
 -----------------
 
 1. Rename files `example.txt` and `test.txt` to `1.txt` and `2.txt`:
