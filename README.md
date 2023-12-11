@@ -4,7 +4,7 @@ Sequential file renamer
 Renames files in a numerical sequence.
 (C) 2021 António Manuel Dias
 
-Version 0.5 -- 2023-12-10
+Version 0.6 -- 2023-12-11
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-Installation
+INSTALLATION
 ------------
 
 The following instructions describe the installation process for basic usage

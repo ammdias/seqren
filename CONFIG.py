@@ -3,8 +3,8 @@
 
 DOC = 'Installation script for seqren.'''
 COPYRIGHT_YEAR = '2021'
-VERSION = '0.5'
-DATE = '2023-12-10'
+VERSION = '0.6'
+DATE = '2023-12-11'
 AUTHOR = 'António Manuel Dias <ammdias@gmail.com>'
 LICENSE = '''
 This program is free software: you can redistribute it and/or modify

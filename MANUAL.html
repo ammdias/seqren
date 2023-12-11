@@ -14,13 +14,12 @@
 <p>The instructions below are for installation on a modern Linux system. They may work on other modern Unix-like systems like BSD derivatives, including MacOS, but that has not been tested and may require some tweaking. Try it at your own risk. For MS Windows installation, the user will have to do some tweaking.</p>
 <ol type="1">
 <li><p>Download and unzip the program’s compressed file in a directory of your choosing.</p></li>
-<li><p>Open a terminal in the directory where the program was uncompressed and run the following script to install locally:</p>
+<li><p>Open a terminal in the directory where the program was uncompressed and run the installation script with Python 3:</p>
 <pre><code> $ python3 INSTALL.py</code></pre>
-<p>This will install the program for the current user only and is suited for single-user systems. The program will be installed in a directory under <code>$HOME/.local/lib</code> and a symbolic link <code>$HOME/.local/bin/seqren</code> will be created to allow simple execution.</p>
-<p>On most Linux systems the <code>$HOME/.local/bin</code> directory will be inserted in the execution PATH, if it exists. If that is not your case, you must make sure to insert it.</p></li>
+<p>You will be prompted for the installation directory — i.e. the directory under which the folder containing all the application files will be placed — and for the start link directory — i.e. the directory where the symbolic link for the program will be created.</p>
+<p>The default directories will install the program for the current user only and are suited for single-user systems. If you want to keep these settings, just press ENTER when prompted. The program will be installed in the directory <code>$HOME/.local/lib/seqren</code> and the symbolic link <code>$HOME/.local/bin/seqren</code> will be created. On most Linux systems the <code>$HOME/.local/bin</code> directory will be inserted in the execution PATH, if it exists. If it doesn’t, you will have to add it manually.</p>
+<p>If a previous installation exists on the selected directory, you will be asked if you want to overwrite it. Answer “<code>yes</code>” (or just “<code>y</code>”) if that is the case or “<code>no</code>” (“<code>n</code>”) if not.</p></li>
 <li><p>Test that the installation was successful with the command:</p>
-<pre><code>$ seqren --version</code></pre>
-<p>(this should open the print the program’s name and version)</p>
 <pre><code>$ seqren --help</code></pre>
 <p>(this should print the program’s simple help page)</p></li>
 </ol>
@@ -33,6 +32,32 @@
 $ seqren IMG-202102??-*.jpg</code></pre>
 <p>The sequence will usually start at the number 1, with no leading zeroes, but this behaviour may be altered with the <code>--start</code> and <code>--leading_zeroes</code> options. It is also possible to move the files while renaming them and to keep the original files.</p>
 <p>You may combine several options. Check the <a href="#reference">REFERENCE</a> section for the explanation of the full capabilities of the utility.</p>
+<h3 id="examples-of-usage">Examples of Usage</h3>
+<ol type="1">
+<li><p>Rename files <code>example.txt</code> and <code>test.txt</code> to <code>1.txt</code> and <code>2.txt</code>:</p>
+<pre><code>$ seqren example.txt test.txt</code></pre></li>
+<li><p>Rename all files with extension <code>.jpg</code> in the current directory in a sequence (<code>1.jpg</code>, <code>2.jpg</code> …)</p>
+<pre><code>$ seqren *.jpg</code></pre></li>
+<li><p>Rename all files with extension <code>.jpg</code> in the current directory in a sequence starting in number 0 (<code>0.jpg</code>, <code>1.jpg</code>, …)</p>
+<pre><code>$ seqren *.jpg -s 0</code></pre></li>
+<li><p>Rename all files with extension <code>.jpg</code> in the current directory in a sequence, with 2 digit numbers with leading zeroes (<code>01.jpg</code>, <code>02.jpg</code>, …)</p>
+<pre><code>$ seqren *.jpg -z 2</code></pre></li>
+<li><p>Rename all files with extension .jpg in the current directory in a sequence, with 2 digit numbers and starting with the text “Day At The Beach-” (<code>Day At The Beach-01.jpg</code>, <code>Day At The Beach-02.jpg</code>, …)</p>
+<pre><code>$ seqren *.jpg -z 2 -T &quot;Day At The Beach-&quot;</code></pre></li>
+<li><p>Same as previous example but changing extension to <code>.jpeg</code> (<code>Day At The Beach-01.jpeg</code>, <code>Day At The Beach-02.jpeg</code>, …)</p>
+<pre><code>$ seqren *.jpg -z 2 -T &quot;Day At The Beach-&quot; -e .jpeg</code></pre></li>
+<li><p>Rename all files with extension <code>.mp3</code> in a sequence, keeping the original name after the number separated by a space (<code>1 House of the Rising Sun.mp3</code>, <code>2 Scarborough Fair.mp3</code>, …):</p>
+<pre><code>$ seqren *.mp3 -i -t &quot; &quot;</code></pre></li>
+<li><p>Same as previous example but moving the files to the directory “Folk Music” (<code>Folk Music/1 House of the Rising Sun.mp3</code>, <code>Folk Music/2 Scarborough Fair.mp3</code>, …):</p>
+<pre><code>$ seqren *.mp3 -i -t &quot; &quot; -d &quot;Folk Music&quot;</code></pre></li>
+<li><p>Add option <code>-k</code> to keep the original files:</p>
+<pre><code>$ seqren *.mp3 -k -i -t &quot; &quot; -d &quot;Folk Music&quot;</code></pre></li>
+<li><p>Option <code>-n</code> only shows the operations to execute, without actually renaming the files. Example:</p>
+<p>$ seqren *.mp3 -n -k -i -t " " -d “Folk Music”</p></li>
+</ol>
+<p>would output:</p>
+<pre><code>   cp House of the Rising Sun.mp3 Folk Music/1 House of the Rising Sun.mp3
+   cp Scarborough Fair.mp3 Folk Music/2 Scarborough Fair.mp3</code></pre>
 <h2 id="reference">REFERENCE</h2>
 <h3 id="options-to-change-the-sequence-number">Options to change the sequence number</h3>
 <ul>

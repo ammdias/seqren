@@ -20,14 +20,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>."""
 
 __version__ = '0.5'
-__date__ = '2023-12-10'
+__date__ = '2023-12-11'
 __license__ ='GNU General Public License version 3'
 __author__ = 'António Manuel Dias <ammdias@gmail.com>'
 
 
 import sys
 import shutil
-import os.path
+import shlex
+import os
 import argparse
 import webbrowser
 
@@ -41,16 +42,21 @@ def run(action, args):
         print("No files to rename.")
         return
 
+    # create destination dir first if it was set by user
+    if args.destination_directory:
+        os.makedirs(args.destination_directory, exist_ok=True)
+
     for i, f in enumerate(args.file, start=args.start):
         if not os.path.exists(f):
-            print("Error: {} not found.".format(f))
+            print(f"Error: {f} not found.", file=sys.stderr)
             continue
-
-        number = "{}{:0{ld}d}{}".format(args.text_before, i, args.text_after,
-                                        ld=args.leading_zeroes)
 
         directory, filename = os.path.split(f)
         filename, extension = os.path.splitext(filename)
+
+        number = ( f"{args.text_before}"
+                   f"{i:0{args.leading_zeroes}d}"
+                   f"{args.text_after}" )
 
         if args.include_name_before:
             filename = filename + number
@@ -59,8 +65,12 @@ def run(action, args):
         else:
             filename = number
 
-        action(f, os.path.join(args.destination_directory or directory,
-                               filename + (args.extension or extension)))
+        try:
+            action(f, os.path.join(args.destination_directory or directory,
+                                   filename + (args.extension or extension)))
+        except Exception as e:
+            print(f"Could not rename '{f}'. Reason:\n{e}", file=sys.stderr)
+            continue
 
 
 #------------------------------------------------------------------------------
@@ -136,8 +146,16 @@ elif args.manual:
     webbrowser.open_new(os.path.join(sys.path[0], "MANUAL.html"))
 else:
     if args.no_act:
-        action = lambda s,d: print("cp" if args.keep else "mv", s, d)
+        action = lambda s,d: print("cp" if args.keep else "mv",
+                                   shlex.quote(s), shlex.quote(d))
     else:
         action = shutil.copy2 if args.keep else shutil.move
-    run(action, args)
+    try:
+        run(action, args)
+    except KeyboardInterrupt:
+        print("Process interrupted by user.", file=sys.stderr)
+        sys.exit()
+    except Exception as e:
+        print(f"Unexpected error:\n{e}", file=sys.stderr)
+        sys.exit(1)
 
